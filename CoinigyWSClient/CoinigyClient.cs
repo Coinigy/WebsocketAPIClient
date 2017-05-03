@@ -17,9 +17,7 @@ namespace CoinigyWS
         private static bool Ready;
         private static bool Debug { get; set; }
 
-        public CoinigyClient(string apiKey,
-            string apiSecret, bool debug = false,
-            string url = "wss://sc-02.coinigy.com", int port = 443, bool secure = true)
+        public CoinigyClient(string apiKey, string apiSecret, bool debug = false, string url = "wss://sc-02.coinigy.com/socketcluster/", int port = 443, bool secure = true)
         {
             Debug = debug;
             DefaultForegroundColor = Console.ForegroundColor;

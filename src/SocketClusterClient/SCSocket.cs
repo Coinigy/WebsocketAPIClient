@@ -269,7 +269,7 @@ namespace SocketClusterSharp.Client
             {
                 State = SCConnectionState.Connecting;
 
-                if (_transport != null) _transport.Off();
+                _transport?.Off();
 
                 _transport = new SCTransport(_auth, Options);
 

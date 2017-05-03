@@ -456,7 +456,7 @@ namespace SocketClusterSharp.Client
                 queryString = "?" + queryString;
 
 
-            return string.Format("{0}://{1}{2}{3}{4}", schema, hostName, port, path, queryString).TrimEnd('/');
+            return $"{schema}://{hostName}{port}{path}{queryString}";
         }
 
         #endregion
