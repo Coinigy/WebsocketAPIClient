@@ -20,11 +20,20 @@ namespace Demo
         private static async Task MainAsync(string[] args)
         {
             //TODO: replace apiKey and apiSecret with your own from Coinigy.com
-            var CClient = new CoinigyClient("apiKey", "apiSecret");
-            await CClient.Connect();
-
-            await CClient.Subscibe("TRADE-OK--BTC--CNY", HandleTradeData);
+            var cClient = new CoinigyClient("apiKey", "apiSecret");
+            await cClient.Connect();
+            RETRY:
+            await cClient.GetChannels((error, data) =>
+            {
+                WriteLine(data.ToString(), ConsoleColor.Green);
+            });
+            //await CClient.Subscibe("TRADE-OK--BTC--USD", HandleTradeData);
+            //await CClient.Subscibe("TRADE-OK--BTC--CNY", HandleTradeData);
+            //await CClient.Subscibe("TRADE-PLNX--BTC--ETH", HandleTradeData);
+            //await CClient.Subscibe("TRADE-PLNX--BTC--ETC", HandleTradeData);
+            
             Console.ReadLine();
+            goto RETRY;
         }
 
         private static void WriteLine(string message, ConsoleColor color)

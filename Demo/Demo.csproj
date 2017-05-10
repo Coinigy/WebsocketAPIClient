@@ -59,6 +59,10 @@
       <Project>{e84b0b3a-e6f4-40d0-a621-10ed4326ca25}</Project>
       <Name>CoinigyWS</Name>
     </ProjectReference>
+    <ProjectReference Include="..\src\SocketClusterClient\SocketClusterClient.csproj">
+      <Project>{DEF0EF01-4825-40F8-96F4-D610A5976EC0}</Project>
+      <Name>SocketClusterClient</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
