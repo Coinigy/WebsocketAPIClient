@@ -90,6 +90,13 @@ namespace CoinigyWS
         public async Task Connect()
         {
             await _scClient.ConnectAsync();
+            Task.Run(async () =>
+            {
+                do
+                {
+                    await Task.Delay(500);
+                } while (_scClient.State != SCConnectionState.Open);
+            }).Wait(30000);
             await _scClient.EmitAsync("auth", Creds);
             do
             {
@@ -97,9 +104,14 @@ namespace CoinigyWS
             } while (!Ready);
         }
 
-        public async Task GetChannels()
+        public async Task GetChannels(SCCallback callback)
         {
-            await _scClient.EmitAsync("channels");
+            await _scClient.EmitAsync("channels", "", callback);
+        }
+
+        private void Callback(SCError error, JToken data)
+        {
+            throw new NotImplementedException();
         }
 
         private void Handler(JToken jToken, SCResponse scResponse)

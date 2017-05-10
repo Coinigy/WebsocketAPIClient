@@ -36,6 +36,7 @@ using WebSocket4Net;
 
 namespace SocketClusterSharp.Client
 {
+    // ReSharper disable once InconsistentNaming
     public class SCTransport : ICanLog
     {
         private Timer _pingTimeoutTimer;
@@ -46,11 +47,11 @@ namespace SocketClusterSharp.Client
         private int _socketClosedCode = 1005;
 
         private JToken _socketClosedData;
-        private const string _wss = "wss";
+        private const string Wss = "wss";
 
-        private const string _ws = "ws";
+        private const string Ws = "ws";
 
-        private static readonly Dictionary<int?, SCEventObject> _eventObjects = new Dictionary<int?, SCEventObject>();
+        private static readonly Dictionary<int?, SCEventObject> EventObjects = new Dictionary<int?, SCEventObject>();
 
         #region Constructors
 
@@ -191,11 +192,14 @@ namespace SocketClusterSharp.Client
             Error = delegate { };
         }
 
+        // Async method lacks 'await' operators and will run synchronously
         /// <summary>
         ///     Open a socket connection asynchronously.
         /// </summary>
         /// <returns>The async.</returns>
+#pragma warning disable CS1998
         public async Task OpenAsync()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             State = SCConnectionState.Connecting;
 
@@ -287,25 +291,28 @@ namespace SocketClusterSharp.Client
         {
             eventObject.Cid = Options.CallIdGenerator();
 
-            if (eventObject.Callback != null && !_eventObjects.ContainsKey(eventObject.Cid))
-                _eventObjects.Add(eventObject.Cid, eventObject);
+            if (eventObject.Callback != null && !EventObjects.ContainsKey(eventObject.Cid))
+                EventObjects.Add(eventObject.Cid, eventObject);
 
             await SendObjectAsync(eventObject);
 
             return eventObject.Cid;
         }
 
+        // Async method lacks 'await' operators and will run synchronously
         /// <summary>
         ///     Sends a string over the socket connection asynchronously.
         /// </summary>
         /// <returns>The async.</returns>
         /// <param name="data">Data.</param>
+#pragma warning disable CS1998
         public async Task SendAsync(string data)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             try
             {
                 _socket.Send(data);
-                this.Log(string.Format("Sending: {0}", data), SCLogingLevels.Debug);
+                this.Log($"Sending: {data}", SCLogingLevels.Debug);
             }
             catch (Exception e)
             {
@@ -348,7 +355,7 @@ namespace SocketClusterSharp.Client
         /// <param name="cid">Cid.</param>
         public void CancelPendingResponse(int? cid)
         {
-            _eventObjects.Remove(cid);
+            EventObjects.Remove(cid);
         }
 
         #endregion
@@ -357,32 +364,21 @@ namespace SocketClusterSharp.Client
 
         private void HandleEventAckTimeout(SCEventObject eventObject)
         {
-            var errorMessage = string.Format("Event response for '{0}' timed out", eventObject.Event);
+            var errorMessage = $"Event response for '{eventObject.Event}' timed out";
             var error = new SCError {Message = errorMessage, Stack = new Exception().StackTrace};
             error.Type = "timeout";
 
-            if (eventObject.Cid != null)
-            {
-                if (_eventObjects.ContainsKey(eventObject.Cid))
+                if (EventObjects.ContainsKey(eventObject.Cid))
                 {
-                    var callback = _eventObjects[eventObject.Cid].Callback;
-                    _eventObjects[eventObject.Cid].Callback = null;
+                    var callback = EventObjects[eventObject.Cid].Callback;
+                    EventObjects[eventObject.Cid].Callback = null;
 
                     callback(error, JToken.FromObject(eventObject));
                     Error(error);
 
                     //Remove from eventList
-                    _eventObjects.Remove(eventObject.Cid);
+                    EventObjects.Remove(eventObject.Cid);
                 }
-            }
-            else
-            {
-                var callback = eventObject.Callback;
-                eventObject.Callback = null;
-
-                callback(error, JToken.FromObject(eventObject));
-                Error(error);
-            }
         }
 
         private void HandShake(SCCallback callback)
@@ -391,7 +387,7 @@ namespace SocketClusterSharp.Client
             {
                 if (err != null)
                 {
-                    callback(err, null);
+                    callback(err);
                 }
                 else
                 {
@@ -402,8 +398,7 @@ namespace SocketClusterSharp.Client
                         Force = true
                     };
 
-                    var data = new JObject();
-                    data.Add("authToken", token);
+                    var data = new JObject {{"authToken", token}};
 
                     await EmitAsync("#handshake", data, callback, options);
                 }
@@ -432,7 +427,7 @@ namespace SocketClusterSharp.Client
         private string Url()
         {
             var uri = new Uri(Options.Hostname);
-            if (uri.Scheme.Contains(_wss) || uri.Scheme.Contains("https"))
+            if (uri.Scheme.Contains(Wss) || uri.Scheme.Contains("https"))
                 Options.Secure = true;
 
             if (!uri.IsDefaultPort)
@@ -440,11 +435,11 @@ namespace SocketClusterSharp.Client
 
             var query = Options.Query ?? new HttpValueCollection(uri.Query);
             var path = Options.Path.StartsWith("/") ? Options.Path : "/" + Options.Path;
-            var schema = Options.Secure ? _wss : _ws;
+            var schema = Options.Secure ? Wss : Ws;
             var hostName = uri.Host.TrimEnd('/');
             var port = "";
 
-            if (Options.Port != null && (schema == _wss && Options.Port != 443 || _ws == schema && Options.Port != 80))
+            if (Options.Port != null && (schema == Wss && Options.Port != 443 || Ws == schema && Options.Port != 80))
                 port = string.Format(":{0}", Options.Port);
 
             if (Options.TimestampRequests)
@@ -463,12 +458,22 @@ namespace SocketClusterSharp.Client
 
         #region Private Event Handlers
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         private async void Socket_MessageReceived(string socketMessage)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
-            this.Log(string.Format("Message Recieved: {0}", socketMessage), SCLogingLevels.Trace);
+            this.Log($"Message Recieved: {socketMessage}", SCLogingLevels.Trace);
             MessageReceived(socketMessage);
+            if (socketMessage == "#1")
+            {
+                this.Log("Recieved: PING", SCLogingLevels.Debug);
+                
+                _socket.Send("#2");
 
-            if (socketMessage == "1")
+                this.Log("Sending: PONG", SCLogingLevels.Debug);
+                ResetPingTimeout();
+            }
+            else if (socketMessage == "1")
             {
                 this.Log("Recieved: PING", SCLogingLevels.Debug);
 
@@ -485,7 +490,7 @@ namespace SocketClusterSharp.Client
 
                     if (!jsonObject["event"].IsNullOrEmpty())
                     {
-                        this.Log(string.Format("Event Recieved: {0}", jsonObject), SCLogingLevels.Debug);
+                        this.Log($"Event Recieved: {jsonObject}", SCLogingLevels.Debug);
                         EventReceived((string) jsonObject["event"], jsonObject["data"],
                             new SCResponse((string) jsonObject["cid"], _socket));
                     }
@@ -496,7 +501,7 @@ namespace SocketClusterSharp.Client
                         this.Log(string.Format("Response Recieved: {0}", jsonObject), SCLogingLevels.Debug);
 
                         SCEventObject eventObj;
-                        if (_eventObjects.TryGetValue(rid, out eventObj))
+                        if (EventObjects.TryGetValue(rid, out eventObj))
                         {
                             //Remove tmeout
                             if (eventObj.Callback != null)
@@ -515,7 +520,7 @@ namespace SocketClusterSharp.Client
                             try
                             {
                                 //Remove from list.
-                                _eventObjects.Remove(rid);
+                                EventObjects.Remove(rid);
                             }
                             catch (Exception e)
                             {
@@ -525,13 +530,13 @@ namespace SocketClusterSharp.Client
                     }
                     else
                     {
-                        this.Log(string.Format("Raw Recieved: {0}", socketMessage), SCLogingLevels.Debug);
+                        this.Log($"Raw Recieved: {socketMessage}", SCLogingLevels.Debug);
                         RawEventReceived(socketMessage);
                     }
                 }
                 catch (JsonReaderException ex)
                 {
-                    this.Log(string.Format("Raw Recieved: {0}", socketMessage), SCLogingLevels.Debug);
+                    this.Log($"Raw Recieved: {socketMessage}", SCLogingLevels.Debug);
                     RawEventReceived(socketMessage);
                 }
             }
@@ -557,15 +562,12 @@ namespace SocketClusterSharp.Client
             {
                 case SCConnectionState.Connecting:
                     OpenAborted(_socketClosedCode, _socketClosedData);
-                    this.Log(
-                        string.Format("TRANSPORT CONNECTION ABORTED ({0}): {1}", _socketClosedCode, _socketClosedData),
-                        SCLogingLevels.Debug);
+                    this.Log($"TRANSPORT CONNECTION ABORTED ({_socketClosedCode}): {_socketClosedData}", SCLogingLevels.Debug);
                     break;
 
                 default:
                     Closed(_socketClosedCode, _socketClosedData);
-                    this.Log(string.Format("TRANSPORT DISCONNECTED ({0}): {1}", _socketClosedCode, _socketClosedData),
-                        SCLogingLevels.Debug);
+                    this.Log($"TRANSPORT DISCONNECTED ({_socketClosedCode}): {_socketClosedData}", SCLogingLevels.Debug);
                     break;
             }
 
@@ -583,14 +585,16 @@ namespace SocketClusterSharp.Client
 
             ResetPingTimeout();
 
+#pragma warning disable 1998
             HandShake(async (err, status) =>
+#pragma warning restore 1998
             {
-                this.Log(string.Format("HandShake Recieved: {0},  {1}", err, status), SCLogingLevels.Debug);
+                this.Log($"HandShake Recieved: {err},  {status}", SCLogingLevels.Debug);
                 if (err != null)
                 {
                     Error(err);
                     _socketClosedCode = 4003;
-                    this.Log(string.Format("HandShake Failed: {0}", err), SCLogingLevels.Error);
+                    this.Log($"HandShake Failed: {err}", SCLogingLevels.Error);
                     _socket.Close();
                 }
                 else if (!status.IsNullOrEmpty())
@@ -608,7 +612,7 @@ namespace SocketClusterSharp.Client
                         State = SCConnectionState.Open;
 
                         Opened(statusObj);
-                        this.Log(string.Format("TRANSPORT CONNECTED: {0}", status), SCLogingLevels.Debug);
+                        this.Log($"TRANSPORT CONNECTED: {status}", SCLogingLevels.Debug);
                         ResetPingTimeout();
                     }
                 }
