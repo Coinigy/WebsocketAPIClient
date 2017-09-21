@@ -751,6 +751,8 @@ namespace SocketClusterSharp.Client
             var error = new SCError("timeout", "Event response for '" + eventObject.Event + "' timed out");
             error.Stack = new Exception().StackTrace;
 
+            if (eventObject.Callback == null) return;
+
             var callback = eventObject.Callback;
             eventObject.Callback = null;
 
