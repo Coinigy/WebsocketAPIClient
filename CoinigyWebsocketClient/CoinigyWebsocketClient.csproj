@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.8.6</Version>
+    <AssemblyVersion>1.8.6.0</AssemblyVersion>
+    <FileVersion>1.8.6.0</FileVersion>
+    <Authors>ByronP</Authors>
+    <Company>Coinigy Inc.</Company>
+    <PackageProjectUrl>https://github.com/coinigy/WebsocketAPIClient</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/coinigy/WebsocketAPIClient</RepositoryUrl>
+    <PackageTags>Coinigy socketcluster websocket bitcoin ethereum api client netstandard core</PackageTags>
+    <Copyright>2017 Coinigy Inc.</Copyright>
+    <Description>A Netstandard library for accessing the Coingy.com SocketCluster Websocket API.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PureSocketCluster" Version="1.1.1" />
+  </ItemGroup>
+
+</Project>
