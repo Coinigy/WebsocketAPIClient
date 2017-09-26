@@ -21,8 +21,10 @@ namespace CoinigyWebsocketDemo
             // lets setup our credentials
             var creds = new ApiCredentials("ApiKey", "ApiSecret");
 
-            // lets  create an instance of the client class and set it to debug mode
+            // lets  create an instance of the client class and set it to debug mode, normally we would not use any debug mode
             _client = new CoinigyWsClient(creds, true);
+            // if we want in depth debug information we can set the debug mode to on for the underlying connection
+            // _client.ConnectionDebug = true;
 
             // lets hook up some events
             _client.OnClientReady += Client_OnClientReady;
@@ -39,8 +41,9 @@ namespace CoinigyWebsocketDemo
             _client.OnFavoriteMessage += _client_OnFavoriteMessage;
             _client.OnNewsMessage += _client_OnNewsMessage;
             _client.OnNotificationMessage += _client_OnNotificationMessage;
-            // 2. we can handle all messages ourself
+            // 2. we can handle all messages ourself if we want
             _client.OnMessage += _client_OnMessage;
+
             // 3. when we subcribe to a channel we can attach a callback as demonstrated in Client_OnClientReady with MyCustomCallback
 
             // lets try and open our connection, we must remember we are not authorized to do anything until OnClientReady is fired
@@ -114,11 +117,11 @@ namespace CoinigyWebsocketDemo
 
             // Some calls are simply informational, these have been wrapped up for you into a simple method and will return the results to you
             // lets get the list of all available channels
-            //var channels = _client.GetChannels();
-            //foreach (var channel in channels)
-            //{
-            //    OutputConsole.WriteLine(channel, ConsoleColor.Blue);
-            //}
+            var channels = _client.GetChannels();
+            foreach (var channel in channels)
+            {
+                OutputConsole.WriteLine(channel, ConsoleColor.Blue);
+            }
 
             // lets get all channels for BTRX
             //var markets = _client.GetChannels("BTRX");
@@ -138,11 +141,13 @@ namespace CoinigyWebsocketDemo
             // have some way of handling when data is received. As shown in the Main method we have several options for this.
             // lets subscribe to a channel
             //_client.SubscribeToChannel("TRADE-BITF--ETH--BTC");
-            //_client.SubscribeToChannel("BLOCK-LTC");
-            //_client.SubscribeToChannel("NEWS");
+            // this can also be achieved by calling
+            _client.SubscribeToTradeChannel("BITF", "ETH", "BTC");
+
             // this is how to subscribe to your private channel or any other channel or any call that is not predefined for you
             //_client.SubscribeToChannel("44444444-4444-4444-4444-444444444444");
-            //_client.SubscribeToChannel("NEW_MARKET");
+            //_client.SubscribeToChannel("NEWMARKET");
+
             // we can also subscribe to a channel and supply our own callback instead of using the builtin events
             _client.SubscribeToChannel("TRADE-BITF--ETH--BTC", MyCustomCallback);
         }
