@@ -1,6 +1,6 @@
 # Coinigy Websocket API SocketCluster Client
 
-[![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)](https://www.nuget.org/packages/CoinigyWebsocketClient)
+[![NuGet](https://img.shields.io/badge/nuget-v1.8.6-blue.svg)](https://www.nuget.org/packages/CoinigyWebsocketClient)
 
 This library wraps all the code required to access the Coinigy websocket SocketCluster realtime api into an easy to use cross platform .NET Netstandard package.
 
