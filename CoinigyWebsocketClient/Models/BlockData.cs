@@ -1,14 +1,13 @@
-﻿using System.Text;
-using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
 
 namespace CoinigyWebsocketClient.Models
 {
     public class BlockData
     {
-        [JsonProperty("channel")]
+	    [DataMember(Name = "channel")]
         public string Channel { get; set; }
 
-        [JsonProperty("data")]
+	    [DataMember(Name = "data")]
         public BlockItem Block { get; set; }
     }
 }

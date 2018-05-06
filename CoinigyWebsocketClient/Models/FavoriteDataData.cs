@@ -1,13 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
 
 namespace CoinigyWebsocketClient.Models
 {
     public class FavoriteDataData
     {
-        [JsonProperty("Data")]
+        [DataMember(Name = "Data")]
         public FavoriteDataItem[] Favorites { get; set; }
 
-        [JsonProperty("MessageType")]
+        [DataMember(Name = "MessageType")]
         public string MessageType { get; set; }
     }
 }

@@ -1,31 +1,31 @@
-﻿using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
 
 namespace CoinigyWebsocketClient.Models
 {
     public class NewsDataItem
     {
-        [JsonProperty("id")]
+        [DataMember(Name = "id")]
         public long Id { get; set; }
 
-        [JsonProperty("feed_name")]
+        [DataMember(Name = "feed_name")]
         public string FeedName { get; set; }
 
-        [JsonProperty("feed_image")]
+        [DataMember(Name = "feed_image")]
         public string FeedImage { get; set; }
 
-        [JsonProperty("feed_url")]
+        [DataMember(Name = "feed_url")]
         public string FeedUrl { get; set; }
 
-        [JsonProperty("published_date")]
+        [DataMember(Name = "published_date")]
         public string PublishedDate { get; set; }
 
-        [JsonProperty("news_id")]
+        [DataMember(Name = "news_id")]
         public long NewsId { get; set; }
 
-        [JsonProperty("title")]
+        [DataMember(Name = "title")]
         public string Title { get; set; }
 
-        [JsonProperty("url")]
+        [DataMember(Name = "url")]
         public string Url { get; set; }
     }
 }

@@ -1,43 +1,43 @@
-﻿using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
 
 namespace CoinigyWebsocketClient.Models
 {
     public class NotificationDataItem
     {
-        [JsonProperty("pinned")]
+        [DataMember(Name = "pinned")]
         public bool Pinned { get; set; }
 
-        [JsonProperty("style")]
+        [DataMember(Name = "style")]
         public string Style { get; set; }
 
-        [JsonProperty("message_vars")]
+        [DataMember(Name = "message_vars")]
         public string MessageVars { get; set; }
 
-        [JsonProperty("message")]
+        [DataMember(Name = "message")]
         public string Message { get; set; }
 
-        [JsonProperty("notification_id")]
+        [DataMember(Name = "notification_id")]
         public long NotificationId { get; set; }
 
-        [JsonProperty("sound_id")]
+        [DataMember(Name = "sound_id")]
         public string SoundId { get; set; }
 
-        [JsonProperty("sound")]
+        [DataMember(Name = "sound")]
         public bool Sound { get; set; }
 
-        [JsonProperty("sound_override")]
+        [DataMember(Name = "sound_override")]
         public string SoundOverride { get; set; }
 
-        [JsonProperty("title")]
+        [DataMember(Name = "title")]
         public string Title { get; set; }
 
-        [JsonProperty("time")]
+        [DataMember(Name = "time")]
         public string Time { get; set; }
 
-        [JsonProperty("title_vars")]
+        [DataMember(Name = "title_vars")]
         public string TitleVars { get; set; }
 
-        [JsonProperty("type")]
+        [DataMember(Name = "type")]
         public long Type { get; set; }
     }
 }

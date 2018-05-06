@@ -1,13 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
 
 namespace CoinigyWebsocketClient.Models
 {
     public class NotificationDataData
     {
-        [JsonProperty("Data")]
+        [DataMember(Name = "Data")]
         public NotificationDataItem NotificationDataItem { get; set; }
 
-        [JsonProperty("MessageType")]
+        [DataMember(Name = "MessageType")]
         public string MessageType { get; set; }
     }
 }

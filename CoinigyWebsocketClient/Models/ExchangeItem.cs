@@ -1,44 +1,33 @@
-﻿using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
+using PureSocketCluster;
 
 namespace CoinigyWebsocketClient.Models
 {
     public class ExchangeItem
     {
-        [JsonProperty("exch_id")]
+        [DataMember(Name = "exch_id")]
         public long ExchId { get; set; }
 
-        [JsonProperty("exch_code")]
+        [DataMember(Name = "exch_code")]
         public string ExchCode { get; set; }
 
-        [JsonProperty("exch_balance_enabled")]
-        public long ExchBalanceEnabled { get; set; }
+        [DataMember(Name = "exch_balance_enabled")]
+        public bool ExchBalanceEnabled { get; set; }
 
-        [JsonProperty("exch_fee")]
-        public double ExchFee { get; set; }
+        [DataMember(Name = "exch_fee")]
+        public decimal ExchFee { get; set; }
 
-        [JsonProperty("exch_trade_enabled")]
-        public long ExchTradeEnabled { get; set; }
+        [DataMember(Name = "exch_trade_enabled")]
+        public bool ExchTradeEnabled { get; set; }
 
-        [JsonProperty("exch_name")]
+        [DataMember(Name = "exch_name")]
         public string ExchName { get; set; }
 
-        [JsonProperty("exch_url")]
+        [DataMember(Name = "exch_url")]
         public string ExchUrl { get; set; }
 
-        public static ExchangeItem FromJson(string json)
-        {
-            return JsonConvert.DeserializeObject<ExchangeItem>(json, Settings);
-        }
+        public static ExchangeItem FromJson(ISerializer serializer, string json) => serializer.Deserialize<ExchangeItem>(json);
 
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Settings);
-        }
-
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-        };
+	    public byte[] ToJson(ISerializer serializer) => serializer.Serialize(this);
     }
 }

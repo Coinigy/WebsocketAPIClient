@@ -1,28 +1,19 @@
-﻿using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
 
 namespace CoinigyWebsocketClient.Models
 {
     public class OrderItem
     {
-        [JsonProperty("price")]
-        public double Price { get; set; }
+        [DataMember(Name = "price")]
+        public decimal Price { get; set; }
 
-        [JsonProperty("label")]
-        public string Label { get; set; }
-
-        [JsonProperty("exchange")]
-        public string Exchange { get; set; }
-
-        [JsonProperty("ordertype")]
+        [DataMember(Name = "ordertype")]
         public string Ordertype { get; set; }
 
-        [JsonProperty("timestamp")]
-        public string Timestamp { get; set; }
+        [DataMember(Name = "quantity")]
+        public decimal Quantity { get; set; }
 
-        [JsonProperty("quantity")]
-        public double Quantity { get; set; }
-
-        [JsonProperty("total")]
-        public double Total { get; set; }
+        [DataMember(Name = "total")]
+        public decimal Total { get; set; }
     }
 }

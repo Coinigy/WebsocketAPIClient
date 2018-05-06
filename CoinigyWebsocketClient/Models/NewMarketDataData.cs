@@ -1,16 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
 
 namespace CoinigyWebsocketClient.Models
 {
     public class NewMarketDataItem
     {
-        [JsonProperty("Exchange")]
+        [DataMember(Name = "Exchange")]
         public NewMarketExchangeItem Exchange { get; set; }
 
-        [JsonProperty("Config")]
+        [DataMember(Name = "Config")]
         public object Config { get; set; }
 
-        [JsonProperty("Markets")]
+        [DataMember(Name = "Markets")]
         public NewMarketItem[] Markets { get; set; }
     }
 }

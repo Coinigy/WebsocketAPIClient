@@ -1,29 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
+using PureSocketCluster;
 
 namespace CoinigyWebsocketClient.Models
 {
     public class TradeResponse
     {
-        [JsonProperty("data")]
+        [DataMember(Name = "data")]
         public TradeData TradeData { get; set; }
 
-        [JsonProperty("event")]
+        [DataMember(Name = "event")]
         public string Event { get; set; }
 
-        public static TradeResponse FromJson(string json)
-        {
-            return JsonConvert.DeserializeObject<TradeResponse>(json, Settings);
-        }
+        public static TradeResponse FromJson(ISerializer serializer, string json) => serializer.Deserialize<TradeResponse>(json);
 
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Settings);
-        }
-
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-        };
+	    public byte[] ToJson(ISerializer serializer) => serializer.Serialize(this);
     }
 }

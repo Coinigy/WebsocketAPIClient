@@ -1,49 +1,49 @@
-﻿using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
 
 namespace CoinigyWebsocketClient.Models
 {
     public class TradeItem
     {
-        [JsonProperty("label")]
-        public string Label { get; set; }
+		[DataMember(Name = "market_history_id")]
+	    public long MarketHistoryId { get; set; }
 
-        [JsonProperty("quantity")]
-        public decimal Quantity { get; set; }
+	    [DataMember(Name = "exchange")]
+	    public string Exchange { get; set; }
 
-        [JsonProperty("exchId")]
-        public long ExchId { get; set; }
+	    [DataMember(Name = "marketid")]
+	    public int Marketid { get; set; }
 
-        [JsonProperty("channel")]
-        public string Channel { get; set; }
+	    [DataMember(Name = "label")]
+	    public string Label { get; set; }
 
-        [JsonProperty("exchange")]
-        public string Exchange { get; set; }
+	    [DataMember(Name = "tradeid")]
+	    public string Tradeid { get; set; }
 
-        [JsonProperty("marketid")]
-        public long Marketid { get; set; }
+	    [DataMember(Name = "time")]
+	    public string Time { get; set; }
 
-        [JsonProperty("market_history_id")]
-        public long MarketHistoryId { get; set; }
+	    [DataMember(Name = "price")]
+	    public decimal Price { get; set; }
 
-        [JsonProperty("price")]
-        public decimal Price { get; set; }
+	    [DataMember(Name = "quantity")]
+	    public decimal Quantity { get; set; }
 
-        [JsonProperty("time_local")]
-        public string TimeLocal { get; set; }
+	    [DataMember(Name = "total")]
+	    public decimal Total { get; set; }
 
-        [JsonProperty("total")]
-        public decimal Total { get; set; }
+	    [DataMember(Name = "timestamp")]
+	    public string Timestamp { get; set; }
 
-        [JsonProperty("time")]
-        public string Time { get; set; }
+	    [DataMember(Name = "time_local")]
+	    public string TimeLocal { get; set; }
 
-        [JsonProperty("timestamp")]
-        public string Timestamp { get; set; }
+	    [DataMember(Name = "type")]
+	    public string Type { get; set; }
 
-        [JsonProperty("tradeid")]
-        public string Tradeid { get; set; }
+	    [DataMember(Name = "exchId")]
+	    public int ExchId { get; set; }
 
-        [JsonProperty("type")]
-        public string Type { get; set; }
-    }
+	    [DataMember(Name = "channel")]
+	    public string Channel { get; set; }
+	}
 }

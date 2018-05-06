@@ -3,9 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26906.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinigyWebsocketClient", "CoinigyWebsocketClient\CoinigyWebsocketClient.csproj", "{213F935E-55DD-40D3-8018-A8C76C89A73E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinigyWebsocketClient", "CoinigyWebsocketClient\CoinigyWebsocketClient.csproj", "{213F935E-55DD-40D3-8018-A8C76C89A73E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinigyWebsocketDemo", "CoinigyWebsocketDemo\CoinigyWebsocketDemo.csproj", "{CBCBD0BF-7266-4EB9-9D6C-B72025D0C89A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinigyWebsocketDemo", "CoinigyWebsocketDemo\CoinigyWebsocketDemo.csproj", "{CBCBD0BF-7266-4EB9-9D6C-B72025D0C89A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F64AF8CC-8BE1-46BB-918D-7FACAD7CE6E2}"
+	ProjectSection(SolutionItems) = preProject
+		icon.ico = icon.ico
+		icon.png = icon.png
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,46 +1,46 @@
-﻿using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
 
 namespace CoinigyWebsocketClient.Models
 {
     public class BlockItem
     {
-        [JsonProperty("block_time")]
+        [DataMember(Name = "block_time")]
         public string BlockTime { get; set; }
 
-        [JsonProperty("diff")]
+        [DataMember(Name = "diff")]
         public double Diff { get; set; }
 
-        [JsonProperty("block_reward")]
+        [DataMember(Name = "block_reward")]
         public long BlockReward { get; set; }
 
-        [JsonProperty("block_id")]
+        [DataMember(Name = "block_id")]
         public long BlockId { get; set; }
 
-        [JsonProperty("block_size")]
+        [DataMember(Name = "block_size")]
         public long BlockSize { get; set; }
 
-        [JsonProperty("btc_market_cap")]
+        [DataMember(Name = "btc_market_cap")]
         public double BtcMarketCap { get; set; }
 
-        [JsonProperty("btc_exch_rate")]
+        [DataMember(Name = "btc_exch_rate")]
         public double BtcExchRate { get; set; }
 
-        [JsonProperty("curr_code")]
+        [DataMember(Name = "curr_code")]
         public string CurrCode { get; set; }
 
-        [JsonProperty("outstanding")]
+        [DataMember(Name = "outstanding")]
         public double Outstanding { get; set; }
 
-        [JsonProperty("usd_exch_rate")]
+        [DataMember(Name = "usd_exch_rate")]
         public double UsdExchRate { get; set; }
 
-        [JsonProperty("miner")]
+        [DataMember(Name = "miner")]
         public string Miner { get; set; }
 
-        [JsonProperty("txc")]
+        [DataMember(Name = "txc")]
         public long Txc { get; set; }
 
-        [JsonProperty("usd_market_cap")]
+        [DataMember(Name = "usd_market_cap")]
         public double UsdMarketCap { get; set; }
     }
 }

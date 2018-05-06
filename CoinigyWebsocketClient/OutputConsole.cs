@@ -39,6 +39,7 @@ namespace CoinigyWebsocketClient
                                     // ignore
                                 }
                             }
+	                        // ReSharper disable once FunctionNeverReturns
                         })
                 { IsBackground = true };
                 thread.Start();

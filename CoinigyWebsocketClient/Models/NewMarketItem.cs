@@ -1,52 +1,52 @@
-﻿using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
 
 namespace CoinigyWebsocketClient.Models
 {
     public class NewMarketItem
     {
-        [JsonProperty("orders_channel_name")]
+        [DataMember(Name = "orders_channel_name")]
         public object OrdersChannelName { get; set; }
 
-        [JsonProperty("history_channel_name")]
+        [DataMember(Name = "history_channel_name")]
         public object HistoryChannelName { get; set; }
 
-        [JsonProperty("exchmkt_id")]
+        [DataMember(Name = "exchmkt_id")]
         public long ExchmktId { get; set; }
 
-        [JsonProperty("display_name")]
+        [DataMember(Name = "display_name")]
         public string DisplayName { get; set; }
 
-        [JsonProperty("high")]
+        [DataMember(Name = "high")]
         public long High { get; set; }
 
-        [JsonProperty("market_id")]
+        [DataMember(Name = "market_id")]
         public long MarketId { get; set; }
 
-        [JsonProperty("low")]
+        [DataMember(Name = "low")]
         public long Low { get; set; }
 
-        [JsonProperty("mkt_name")]
+        [DataMember(Name = "mkt_name")]
         public string MktName { get; set; }
 
-        [JsonProperty("request_pair")]
+        [DataMember(Name = "request_pair")]
         public object RequestPair { get; set; }
 
-        [JsonProperty("primary_code")]
+        [DataMember(Name = "primary_code")]
         public string PrimaryCode { get; set; }
 
-        [JsonProperty("price")]
+        [DataMember(Name = "price")]
         public long Price { get; set; }
 
-        [JsonProperty("primary_name")]
+        [DataMember(Name = "primary_name")]
         public string PrimaryName { get; set; }
 
-        [JsonProperty("secondary_name")]
+        [DataMember(Name = "secondary_name")]
         public string SecondaryName { get; set; }
 
-        [JsonProperty("secondary_code")]
+        [DataMember(Name = "secondary_code")]
         public string SecondaryCode { get; set; }
 
-        [JsonProperty("volume")]
+        [DataMember(Name = "volume")]
         public long Volume { get; set; }
     }
 }
