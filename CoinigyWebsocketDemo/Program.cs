@@ -162,7 +162,7 @@ namespace CoinigyWebsocketDemo
 
 			switch (messageType)
 			{
-				// if you want to deserialize into one of thhe premade classes you can do so quite easily by checking the MessageType and deserializing into the apropriate response class
+				// if you want to deserialize into one of the premade classes you can do so quite easily by checking the MessageType and deserializing into the apropriate response class
 				case MessageType.TradeData:
 					try
 					{
