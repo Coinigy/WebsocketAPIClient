@@ -113,7 +113,6 @@ namespace CoinigyWebsocketDemo
 
 		private static void Client_OnClientReady()
 		{
-			// we can now do whatever we want now since we have an authorized connection, do not try to do anythign before this state is reached
 
 			// Some calls are simply informational, these have been wrapped up for you into a simple method and will return the results to you
 			// lets get the list of all available channels
