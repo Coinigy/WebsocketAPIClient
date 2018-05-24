@@ -310,15 +310,7 @@ namespace CoinigyWebsocketClient
 			return _scClient.Subscribe(channelName);
 		}
 
-		private void _scClient_OnOpened()
-		{
-			_scClient.Emit("auth", Options.Creds, (name, error, data) =>
-			{
-				WriteDebugLine("Client is ready, Auth completed.", ConsoleColor.DarkGreen);
-				_ready = true;
-				OnClientReady?.Invoke();
-			});
-		}
+		private void _scClient_OnOpened() => OnClientReady?.Invoke();
 
 		private void WriteDebugLine(string msg, ConsoleColor? foreColor = null, ConsoleColor? backColor = null)
 		{
