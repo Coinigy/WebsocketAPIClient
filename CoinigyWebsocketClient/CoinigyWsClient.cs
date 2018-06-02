@@ -15,7 +15,6 @@ namespace CoinigyWebsocketClient
 	{
 		private readonly PureSocketClusterSocket _scClient;
 		public readonly CoinigyWebSocketClientOptions Options;
-		private bool _ready;
 		private readonly List<KeyValuePair<string, Message>> _subscribeCallbacs = new List<KeyValuePair<string, Message>>();
 
 		public event ClientIsReady OnClientReady;
@@ -177,7 +176,8 @@ namespace CoinigyWebsocketClient
 
 		public IEnumerable<string> GetChannels()
 		{
-			if (_scClient == null || _scClient.SocketState != WebSocketState.Open || !_ready) return null;
+			if (_scClient == null || _scClient.SocketState != WebSocketState.Open)
+				return null;
 
 			var results = new List<string>();
 			var ackReceived = false;
@@ -218,7 +218,7 @@ namespace CoinigyWebsocketClient
 
 		public IEnumerable<string> GetChannels(string exchangeCode)
 		{
-			if (_scClient == null || _scClient.SocketState != WebSocketState.Open || !_ready) return null;
+			if (_scClient == null || _scClient.SocketState != WebSocketState.Open) return null;
 
 			var results = new List<string>();
 			var ackReceived = false;
@@ -251,7 +251,7 @@ namespace CoinigyWebsocketClient
 
 		public IEnumerable<ExchangeItem> GetExchanges()
 		{
-			if (_scClient == null || _scClient.SocketState != WebSocketState.Open || !_ready) return null;
+			if (_scClient == null || _scClient.SocketState != WebSocketState.Open) return null;
 
 			var results = new List<ExchangeItem>();
 			var ackReceived = false;
