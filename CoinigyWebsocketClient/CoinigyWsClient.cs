@@ -225,11 +225,11 @@ namespace CoinigyWebsocketClient
 			_scClient.Emit("channels", exchangeCode, (name, error, data) =>
 			{
 				var res = (List<dynamic>)data;
-				foreach (Dictionary<string, object> r in res[0])
+				foreach (Dictionary<string, object> r in res)
 				{
 					try
 					{
-						results.Add(r["channel"].ToString());
+						results.Add(r.Values.First().ToString());
 					}
 					catch
 					{
