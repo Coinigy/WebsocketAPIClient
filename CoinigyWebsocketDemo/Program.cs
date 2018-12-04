@@ -152,6 +152,7 @@ namespace CoinigyWebsocketDemo
 
 			// we can also subscribe to a channel and supply our own callback instead of using the builtin events
 			_client.SubscribeToChannel("TRADE-BITF--ETH--BTC", MyCustomCallback);
+            _client.SubscribeToChannel("TRADE-BMEX--XBT--USD", MyCustomCallback);
 			//_client.SubscribeToChannel("ORDER-BITF--ETH--BTC", MyCustomCallback);
 		}
 
