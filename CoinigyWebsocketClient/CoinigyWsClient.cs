@@ -258,7 +258,7 @@ namespace CoinigyWebsocketClient
 			_scClient.Emit("exchanges", "", (name, error, data) =>
 			{
 				var res = (List<dynamic>)data;
-				foreach (Dictionary<string, object> r in res[0])
+				foreach (Dictionary<string, object> r in res)
 				{
 					try
 					{
