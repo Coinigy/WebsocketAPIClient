@@ -113,45 +113,44 @@ namespace CoinigyWebsocketDemo
 
 		private static void Client_OnClientReady()
 		{
-			// we can now do whatever we want since we have an authorized connection, do not try to do anything before this state is reached
+            // we can now do whatever we want since we have an authorized connection, do not try to do anything before this state is reached
 
-			// Some calls are simply informational, these have been wrapped up for you into a simple method and will return the results to you
-			// lets get the list of all available channels
-			//var channels = _client.GetChannels();
-			//foreach (var channel in channels)
-			//{
-			//    OutputConsole.WriteLine(channel, ConsoleColor.Blue);
-			//}
+            // Some calls are simply informational, these have been wrapped up for you into a simple method and will return the results to you
+            // lets get the list of all available channels
+            //var channels = _client.GetChannels();
+            //foreach (var channel in channels)
+            //{
+            //    OutputConsole.WriteLine(channel, ConsoleColor.Blue);
+            //}
 
-			// lets get all channels for BTRX
-			//var markets = _client.GetChannels("BTRX");
-			//foreach (var market in markets)
-			//{
-			//	OutputConsole.WriteLine(market, ConsoleColor.Blue);
-			//}
+            // lets get all channels for BTRX
+            //var markets = _client.GetChannels("BTRX");
+            //foreach (var market in markets)
+            //{
+            //    OutputConsole.WriteLine(market, ConsoleColor.Blue);
+            //}
 
-			// lets get all exchanges
-			//var exchanges = _client.GetExchanges();
-			//foreach (var exchange in exchanges)
-			//{
-			//	OutputConsole.WriteLine(exchange.ExchCode, ConsoleColor.Blue);
-			//}
+            // lets get all exchanges
+            //var exchanges = _client.GetExchanges();
+            //foreach (var exchange in exchanges)
+            //{
+            //    OutputConsole.WriteLine(exchange.ExchCode, ConsoleColor.Blue);
+            //}
 
-			// Unlike the calls above Subscribtion calls provide streaming data and will received data as it is pushed from the server so we must
-			// have some way of handling when data is received. As shown in the Main method we have several options for this.
-			// lets subscribe to a channel
-			//_client.SubscribeToChannel("TRADE-BITF--ETH--BTC");
-			// this can also be achieved by calling
-			//_client.SubscribeToTradeChannel("BITF", "ETH", "BTC");
+            // Unlike the calls above Subscribtion calls provide streaming data and will received data as it is pushed from the server so we must
+            // have some way of handling when data is received. As shown in the Main method we have several options for this.
+            // lets subscribe to a channel
+            //_client.SubscribeToChannel("TRADE-BITF--ETH--BTC");
+            // this can also be achieved by calling
+            //_client.SubscribeToTradeChannel("BITF", "ETH", "BTC");
 
-			// this is how to subscribe to your private channel or any other channel or any call that is not predefined for you
-			//_client.SubscribeToChannel("44444444-4444-4444-4444-444444444444");
+            // this is how to subscribe to your private channel or any other channel or any call that is not predefined for you
+            //_client.SubscribeToChannel("44444444-4444-4444-4444-444444444444");
 
-			//_client.SubscribeToChannel("NEWMARKET");
-			//_client.SubscribeToChannel("NEWS");
+            //_client.SubscribeToChannel("NEWMARKET");
+            //_client.SubscribeToChannel("NEWS");
 
-			// we can also subscribe to a channel and supply our own callback instead of using the builtin events
-			_client.SubscribeToChannel("TRADE-BITF--ETH--BTC", MyCustomCallback);
+            // we can also subscribe to a channel and supply our own callback instead of using the builtin events
             _client.SubscribeToChannel("TRADE-BMEX--XBT--USD", MyCustomCallback);
 			//_client.SubscribeToChannel("ORDER-BITF--ETH--BTC", MyCustomCallback);
 		}
